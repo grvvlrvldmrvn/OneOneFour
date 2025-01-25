@@ -6,8 +6,12 @@ import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDaoHibernateImpl implements UserDao {
+    Logger logger = Logger.getLogger(getClass().getName());
+
     public UserDaoHibernateImpl() {
 
     }
@@ -29,7 +33,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery(createTheTable).executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -44,7 +48,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createSQLQuery(dropTheTable).executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, e.getMessage());
         }
 
     }
@@ -58,7 +62,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.save(user);
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -71,7 +75,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.delete(user);
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -85,7 +89,7 @@ public class UserDaoHibernateImpl implements UserDao {
             userList = session.createQuery(getAllFromTheTable, User.class).getResultList();
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, e.getMessage());
         }
         return userList;
     }
@@ -99,7 +103,7 @@ public class UserDaoHibernateImpl implements UserDao {
             session.createQuery(deleteAllFromTable).executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 }
